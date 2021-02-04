@@ -1,0 +1,8 @@
+import pandas as pd
+%matplotlib inline
+df = pd.read_csv("fracture.csv")
+
+
+df.plot.scatter(x = "azi", y = 'dip')
+
+df.plot.scatter(x = "azi", y = 'dip', s=df['Fracture Intensity']*100)
