@@ -1,0 +1,53 @@
+import pandas as pd
+%matplotlib inline
+df = pd.read_csv("GEOMECHANICS.csv")
+df
+
+a = df['DEPTH']
+b = df['Density']
+Sv = (a*b*10)/1000
+df.insert(loc=5, column='Sv', value=Sv)
+
+
+Pphydro = 1*10*a
+c = df['DST']
+PP = a*c
+df.insert(loc=6, column='PP', value=PP)
+
+Shmin = ((0.321*(Sv-PP))+PP)
+df.insert(loc=7, column='Shmin', value=Shmin)
+
+Shmax = (3*Shmin)-(2*PP)
+df.insert(loc=8, column='Shmax', value=Shmax)
+print (df)
+
+import matplotlib.pyplot as plt
+df.plot(x='Sv',y='DEPTH', color='red', label ='Sv')
+plt.grid(linewidth=1)
+plt.xlabel('Stree')
+plt.ylabel('Depth')
+plt.legend()
+plt.title('Sv')
+
+df.plot(x='PP',y='DEPTH', color='yellow', label ='PP')
+plt.grid(linewidth=1)
+plt.xlabel('Stree')
+plt.ylabel('Depth')
+plt.legend()
+plt.title('PP')
+
+df.plot(x='Shmin',y='DEPTH', color='green', label ='Shmin')
+plt.grid(linewidth=1)
+plt.xlabel('Stree')
+plt.ylabel('Depth')
+plt.legend()
+plt.title('Shmin')
+
+df.plot(x='Shmax',y='DEPTH', label ='Shmax')
+plt.grid(linewidth=1)
+plt.xlabel('Stree')
+plt.ylabel('Depth')
+plt.legend()
+plt.title('Shmax')
+
+plt.show()
